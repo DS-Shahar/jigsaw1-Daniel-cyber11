@@ -1,0 +1,180 @@
+package groupWork;
+
+//למחוק ברשימה אחת את כל מה שמופיע ברשימה השניה
+	
+	
+	public static boolean exsis(Node<Integer> list, int a) {
+	    int count = 0;
+	    Node<Integer> current = list;
+
+	    while (current != null) {
+	        if (current.getValue() == a) {
+	            count++;
+	        }
+	        current = current.getNext();
+	        if (count > 1) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
+	public static Node<Integer> del(Node<Integer> L1) {
+	    Node<Integer> current = L1;
+	    Node<Integer> prev = null;
+
+	    while (current.hasNext()) {
+	        if (exsis(L1, current.getValue())) {
+	            if (prev != null) {
+	                prev.setNext(current.getNext());
+	            } else {
+	                L1 = current.getNext(); // אם הצומת הראשון הוא כפול, עדכן את L1
+	            }
+	        } else {
+	            prev = current;
+	        }
+	        current = current.getNext();
+	    }
+
+	    return L1;
+	}
+//בלי פונקצית עזר
+	
+	public static Node<Integer> del2(Node<Integer> L1) {
+	    Node<Integer> head = L1;
+	    Node<Integer> current1 = L1;
+	    Node<Integer> current2 = L1;
+
+
+	    while (current1.hasNext()) {
+	    	current2=current1;
+		    while (current2.hasNext()) {
+		    	if(current1.getValue()==current2.getNext().getValue()) {
+		    		current2.setNext(current2.getNext().getNext());
+		    	}
+		    	else {
+		    		current2=current2.getNext();
+		    	}
+		    	
+		    }
+    		current1=current1.getNext();
+
+	    	
+	    }
+    	return head;
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class Main {
+
+
+
+	public static Node<Integer> delEven(Node<Integer> H) {
+		Node<Integer> current = H;
+		Node<Integer> newH = new Node<>(null);
+		Node<Integer> newCurrent = newH;
+		while (current.getNext().getNext()!=null) {
+			newCurrent.setNext(current.getNext());
+			newCurrent = current.getNext();
+			current.setNext(current.getNext().getNext());
+			current = current.getNext();
+		}
+		newCurrent.setNext(current.getNext());
+		current.setNext(current.getNext().getNext());
+		return newH.getNext();
+	}
+
+	public static Node<Integer> balbalas(Node<Integer> h) {
+		Node<Integer> shellyGi= h;
+		Node<Integer> shellySha = h;
+		Node<Integer>kikstar= shellyGi.getNext();
+		while (h.getNext()!=null) {
+			while(kikstar!=null ) {
+				if(kikstar.getValue()==h.getValue()) {
+					shellySha.setNext(kikstar.getNext());
+				}
+				shellySha=shellySha.getNext();
+				kikstar =kikstar.getNext();
+			}
+			h.getNext();
+			shellySha=h;
+			kikstar=h.getNext();
+
+		}
+		return shellyGi;
+	}
+
+	public static Node<Integer> delDoubles(Node<Integer> head) {
+	    Node<Integer> current1 = head;
+
+	    while (current1 != null) {
+	        Node<Integer> current2 = current1.getNext();
+	        Node<Integer> previous2 = current1;
+
+	        while (current2 != null) {
+	            if (current2.getValue()==current1.getValue()) {
+	                previous2.setNext(current2.getNext()); 
+	            } else {
+	                previous2 = current2;  
+	            }
+	            current2 = current2.getNext();  
+	        }
+	        current1 = current1.getNext();   
+	    }
+
+		return head;
+	}
+
+
+
+	public static void main(String[] args) {
+
+		Node<Integer> a1 = new Node<>(1);
+		Node<Integer> a2 = new Node<>(4);
+		Node<Integer> a3 = new Node<>(1);
+		Node<Integer> a4 = new Node<>(4);
+		Node<Integer> a5 = new Node<>(5);
+		Node<Integer> a6 = new Node<>(6);
+		Node<Integer> a7 = new Node<>(7);
+		Node<Integer> a8 = new Node<>(7);
+
+		a1.setNext(a2);
+		a2.setNext(a3);
+		a3.setNext(a4);
+		a4.setNext(a5);
+		a5.setNext(a6);
+		a6.setNext(a7);
+		a7.setNext(a8);
+
+		System.out.println(delDoubles(a1));
+
+	}
+
+}
+}
